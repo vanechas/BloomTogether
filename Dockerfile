@@ -1,26 +1,21 @@
 FROM php:8.2-apache
 
-# Install PHP extensions
 RUN apt-get update && apt-get install -y \
-    zip unzip curl libpng-dev \
+    zip unzip git curl libpng-dev \
     && docker-php-ext-install pdo pdo_mysql
 
-# Enable Apache rewrite
-RUN a2enmod rewrite
+# FIX: ensure only ONE MPM is enabled
+RUN a2dismod mpm_event mpm_worker || true \
+ && a2enmod mpm_prefork
 
-# Set Apache root to /public
-RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf \
-    /etc/apache2/conf-available/*.conf
+RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-# Copy ALL files including vendor
 COPY . .
 
-# Permissions
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --optimize-autoloader
 
-EXPOSE 80
+RUN chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
