@@ -2,10 +2,11 @@ FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     zip unzip git curl libpng-dev \
-    && docker-php-ext-install pdo pdo_mysql
+ && docker-php-ext-install pdo pdo_mysql
 
-# FIX: ensure only ONE MPM is enabled
-RUN a2dismod mpm_event mpm_worker || true \
+# 🔥 FIX Apache MPM conflict (hard reset)
+RUN rm -f /etc/apache2/mods-enabled/mpm_*.load \
+ && rm -f /etc/apache2/mods-enabled/mpm_*.conf \
  && a2enmod mpm_prefork
 
 RUN a2enmod rewrite
