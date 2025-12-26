@@ -3,16 +3,15 @@ FROM php:8.2-fpm
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
-    git zip unzip libpng-dev libonig-dev libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql
+    git unzip libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
 
+RUN chown -R www-data:www-data /app \
+    && chmod -R 775 /app/storage /app/bootstrap/cache
+
 RUN composer install --no-dev --optimize-autoloader
-RUN chmod -R 775 storage bootstrap/cache
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
+EXPOSE 9000
 CMD ["php-fpm"]
