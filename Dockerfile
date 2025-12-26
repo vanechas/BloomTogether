@@ -1,5 +1,5 @@
 # --- Stage 1: Build Assets (Node.js) ---
-FROM node:18-alpine as build_assets
+FROM node:18-alpine AS build_assets
 
 WORKDIR /app
 
@@ -35,6 +35,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
+RUN chmod -R 755 public  # Added for CSS file access
 
 EXPOSE 8000
 
