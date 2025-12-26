@@ -13,6 +13,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 
+RUN php artisan config:clear \
+ && php artisan cache:clear
+
+RUN php artisan migrate --force
+
 # Install Laravel deps
 RUN composer install --no-dev --optimize-autoloader
 
