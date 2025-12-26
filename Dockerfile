@@ -31,5 +31,8 @@ COPY --from=vendor /app/vendor ./vendor
 # Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
+# Run migrations on container start (safe)
+CMD php artisan migrate --force && apache2-foreground
+
 EXPOSE 8000
 CMD php artisan serve --host=0.0.0.0 --port=8000
