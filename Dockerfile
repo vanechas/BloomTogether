@@ -31,10 +31,5 @@ COPY --from=vendor /app/vendor ./vendor
 # Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Now artisan EXISTS
-RUN php artisan key:generate --force \
- && php artisan config:clear \
- && php artisan cache:clear
-
 EXPOSE 8000
 CMD php artisan serve --host=0.0.0.0 --port=8000
