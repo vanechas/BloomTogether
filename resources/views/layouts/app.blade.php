@@ -13,6 +13,7 @@
     
     <!-- Vite-built CSS and JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/bootstrap.min.css', 'resources/js/bootstrap.bundle.min.js'])
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
