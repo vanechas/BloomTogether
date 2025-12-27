@@ -13,7 +13,9 @@
     
     <!-- Vite-built CSS and JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
     @stack('styles')
 </head>
 <body>
