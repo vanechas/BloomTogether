@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies Node dan build aset (Vite)
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 # --- Stage 2: PHP Application ---
