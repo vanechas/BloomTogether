@@ -1,8 +1,6 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
-
-@import "bootstrap/dist/css/bootstrap.min.css";
+@tailwind utilities;
 
 /* ===== CSS VARIABLES ===== */
 :root {
