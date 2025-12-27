@@ -11,11 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap 5 CSS -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-    
-    <!-- Custom CSS -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Vite-built CSS and JS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     @stack('styles')
 </head>
@@ -53,9 +50,6 @@
     </script>
     @endif
 
-    <!-- Bootstrap 5 JS -->
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
     @stack('scripts')
 </body>
 </html>
