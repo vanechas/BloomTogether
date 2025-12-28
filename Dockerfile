@@ -1,11 +1,8 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-WORKDIR /var/www/html
+WORKDIR /app
 
-# Enable Apache rewrite
-RUN a2enmod rewrite
-
-# Install system deps + Node
+# Install system + Node
 RUN apt-get update && apt-get install -y \
     git unzip zip curl nodejs npm \
     && docker-php-ext-install pdo pdo_mysql \
@@ -14,16 +11,8 @@ RUN apt-get update && apt-get install -y \
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy project
+# Copy app
 COPY . .
-
-# Laravel public directory
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-
-RUN sed -ri \
-    -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf
 
 # Install deps
 RUN composer install --no-dev --optimize-autoloader
@@ -33,6 +22,5 @@ RUN npm run build
 # Permissions
 RUN chmod -R 777 storage bootstrap/cache
 
-# Apache listens on Railway port
-ENV PORT=80
-EXPOSE 80
+# 🚨 IMPORTANT: use PHP built-in server (NOT artisan)
+CMD php -S 0.0.0.0:${PORT} -t public public/index.php
