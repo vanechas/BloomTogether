@@ -4,16 +4,14 @@ services:
     build:
       context: .
       target: laravel
-      args:
-        APP_ENV: production  # Change to 'development' for dev
     ports:
       - "8000:8000"
     depends_on:
       - vite
+    environment:
+      - APP_ENV=development
     volumes:
       - .:/app
-    environment:
-      - APP_ENV=production
 
   vite:
     build:
@@ -21,8 +19,8 @@ services:
       target: vite
       args:
         APP_ENV: development
+    command: npm run dev -- --host 0.0.0.0
     ports:
       - "5173:5173"
     volumes:
       - .:/app
-    command: npm run dev -- --host 0.0.0.0
