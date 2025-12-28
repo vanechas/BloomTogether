@@ -1,5 +1,5 @@
 # ===============================
-# Stage 1: Node for Vite (Build assets or Dev server)
+# Stage 1: Node for Vite (Build assets)
 # ===============================
 FROM node:18 AS vite
 
@@ -9,16 +9,14 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy resources
+# Copy Vite + Laravel resources (IMPORTANT)
 COPY resources ./resources
+COPY public ./public
 COPY vite.config.* ./
 
-# Expose Vite dev server port
-EXPOSE 5173
+# Build assets (production)
+RUN npm run build
 
-# Run production build by default
-ARG APP_ENV=production
-RUN if [ "$APP_ENV" = "production" ]; then npm run build; fi
 
 # ===============================
 # Stage 2: Laravel App
@@ -33,23 +31,23 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Composer binary
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy Laravel app
 COPY . .
 
-# Copy built assets (for production)
+# Copy built Vite assets
 COPY --from=vite /app/public/build /app/public/build
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Set permissions
+# Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
 # Expose Laravel port
 EXPOSE 8000
 
-# Command to run Laravel
+# Run Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
