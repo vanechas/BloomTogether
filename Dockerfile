@@ -36,4 +36,4 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN chmod -R 775 storage bootstrap/cache
 
 # IMPORTANT: Railway provides PORT automatically
-CMD php artisan serve --host=0.0.0.0 --port=${PORT}
+CMD sh -c "php artisan serve --host=0.0.0.0 --port=$PORT"
