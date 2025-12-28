@@ -97,15 +97,12 @@ body {
     box-shadow: var(--shadow-pixel);
     padding: 1rem;
 }
-
 /* ===== NAVBAR ===== */
 .navbar-bloom {
     background-color: rgba(255, 253, 243, 0.95);
     backdrop-filter: blur(8px);
     border-bottom: 4px solid var(--wood-light);
     box-shadow: var(--shadow-pixel-sm);
-
-    /* 🔴 REQUIRED for dropdown visibility */
     overflow: visible;
 }
 
@@ -123,34 +120,31 @@ body {
     background-color: var(--peach);
 }
 
-/* ===== PROFILE DROPDOWN BUTTON ===== */
-.profile-dropdown {
+/* ===== PROFILE LINK ===== */
+.profile-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-
     font-family: 'Nunito', sans-serif;
     color: var(--wood) !important;
-
     background-color: rgba(248, 202, 185, 0.5);
     border-radius: 8px;
-    padding: 0.25rem 0.75rem !important;
-
-    /* 🔴 reset Bootstrap button styles */
-    border: none;
-    box-shadow: none;
+    padding: 0.25rem 0.75rem;
     text-decoration: none;
 }
 
-.profile-dropdown:hover,
-.profile-dropdown:focus {
+.profile-link:hover {
     background-color: var(--peach);
+}
+
+/* ===== DROPDOWN CARET ===== */
+.profile-caret {
+    padding: 0.25rem 0.4rem;
     color: var(--wood);
 }
 
-/* Remove Bootstrap caret arrow (pixel design) */
-.profile-dropdown::after {
-    display: none;
+.profile-caret::after {
+    margin-left: 0;
 }
 
 /* ===== DROPDOWN MENU ===== */
@@ -159,9 +153,16 @@ body {
     border: 2px solid var(--wood-light);
     border-radius: 8px;
     box-shadow: var(--shadow-pixel);
-
-    /* 🔴 REQUIRED layering */
     z-index: 1050;
+}
+
+/* Ensure dropdown becomes visible */
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
 }
 
 /* ===== DROPDOWN ITEMS ===== */
