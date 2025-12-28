@@ -11,13 +11,12 @@ RUN npm ci
 COPY resources ./resources
 COPY vite.config.* ./
 
-# ALWAYS build
 RUN npm run build
 
 # ===============================
-# Stage 2: Laravel App
+# Stage 2: Laravel App (CLI)
 # ===============================
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 WORKDIR /app
 
@@ -30,12 +29,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-# Copy Vite build output
 COPY --from=vite /app/public/build /app/public/build
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN chmod -R 775 storage bootstrap/cache
 
-EXPOSE 8080
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# IMPORTANT: Railway provides PORT automatically
+CMD php artisan serve --host=0.0.0.0 --port=${PORT}
