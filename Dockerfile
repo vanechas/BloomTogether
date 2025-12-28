@@ -19,8 +19,8 @@ RUN composer install --no-dev --optimize-autoloader
 RUN npm install
 RUN npm run build
 
-# Laravel permissions
+# Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Railway expects $PORT
+# IMPORTANT: use Railway port
 CMD php artisan serve --host=0.0.0.0 --port=${PORT}
