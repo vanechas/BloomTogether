@@ -176,6 +176,16 @@ body {
     color: var(--wood);
 }
 
+/* 🔴 FORCE Bootstrap dropdown visibility telling */
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+
 /* ===== BUTTONS ===== */
 .btn-primary-bloom {
     font-family: 'Press Start 2P', cursive;
