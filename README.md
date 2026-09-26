@@ -596,9 +596,9 @@ Odd Semester 2025
 
 ### Team — Kelompok 5
 
-- Amanda Sugito
-- Asyifa Izzatil Isma
-- Vanessa Santoso
+- **Amanda Sugito**
+- **Asyifa Izzatil Isma**
+- **Vanessa Santoso**
 
 **Lecturer:**  
 Rani Puspita, S.Kom., M.Kom
