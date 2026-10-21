@@ -22,12 +22,12 @@ The application also provides social interaction through a **friend list**, allo
 
 Bloom Together was developed to:
 
-- Provide a practical platform for daily journaling
-- Help users track and understand their moods
-- Encourage consistent journaling through visual progress
-- Provide an interactive digital garden experience
-- Facilitate social interaction through a friend system
-- Provide an accessible and user-friendly mental health journaling experience
+- Provide a practical platform for daily journaling.
+- Help users track and understand their moods.
+- Encourage consistent journaling through visual progress.
+- Provide an interactive digital garden experience.
+- Facilitate social interaction through a friend system.
+- Provide an accessible and user-friendly mental health journaling experience.
 
 ---
 
